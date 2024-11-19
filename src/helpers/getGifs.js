@@ -1,8 +1,12 @@
 export const getGifs = async (category) => {
-  const url = `https://api.giphy.com/v1/gifs/search?api_key=7VjbsK9Q71eUG1UinJ3WSBHEgq3Jm69J&q=${category}&limit=10`;
+  // Accede a las variables de entorno de Vite
+  const url = `${import.meta.env.VITE_GIPHY_API_URL}${category}&limit=${import.meta.env.VITE_GIPHY_API_LIMIT}`;
+
   const resp = await fetch(url);
   const { data } = await resp.json();
 
+
+  // Mapeamos los datos y extraemos los gifs
   const gifs = data.map((img) => ({
     id: img.id,
     title: img.title,
@@ -11,3 +15,4 @@ export const getGifs = async (category) => {
 
   return gifs;
 };
+
